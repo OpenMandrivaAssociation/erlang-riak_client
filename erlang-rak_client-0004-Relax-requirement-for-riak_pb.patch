@@ -1,0 +1,19 @@
+From: Peter Lemenkov <lemenkov@gmail.com>
+Date: Fri, 4 Mar 2016 18:42:12 +0300
+Subject: [PATCH] Relax requirement for riak_pb
+
+Signed-off-by: Peter Lemenkov <lemenkov@gmail.com>
+
+diff --git a/rebar.config b/rebar.config
+index 8e917bc..d59c7c4 100644
+--- a/rebar.config
++++ b/rebar.config
+@@ -11,7 +11,7 @@
+     {platform_define, "^18", deprecated_now}
+ ]}.
+ {deps, [
+-    {riak_pb, "2.1.0.7", {git, "git://github.com/basho/riak_pb", {tag, "2.1.0.7"}}}
++    {riak_pb, "2.1.*"}
+ ]}.
+ 
+ {edoc_opts, [

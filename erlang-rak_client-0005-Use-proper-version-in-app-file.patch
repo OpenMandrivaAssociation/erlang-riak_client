@@ -1,0 +1,19 @@
+From: Peter Lemenkov <lemenkov@gmail.com>
+Date: Fri, 4 Mar 2016 18:42:40 +0300
+Subject: [PATCH] Use proper version in app-file
+
+Signed-off-by: Peter Lemenkov <lemenkov@gmail.com>
+
+diff --git a/src/riakc.app.src b/src/riakc.app.src
+index 084bc63..a7d510c 100644
+--- a/src/riakc.app.src
++++ b/src/riakc.app.src
+@@ -1,7 +1,7 @@
+ %% -*- erlang -*-
+ {application, riakc,
+  [{description, "Riak Client"},
+-  {vsn, git},
++  {vsn, "2.1.1"},
+   {applications, [
+                   kernel,
+                   stdlib,

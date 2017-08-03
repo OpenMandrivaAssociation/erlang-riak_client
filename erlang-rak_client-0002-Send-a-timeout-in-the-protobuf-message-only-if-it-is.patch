@@ -1,0 +1,25 @@
+From: Fred Dushin <fdushin@basho.com>
+Date: Wed, 24 Jun 2015 17:33:28 -0400
+Subject: [PATCH] Send a timeout in the protobuf message only if it is
+ explicitly specified via the create_search_index options.
+
+This is for backwards-compatibility for 2.0.x clients, which don't support the timeout parameter in the protobuf message.
+
+diff --git a/src/riakc_pb_socket.erl b/src/riakc_pb_socket.erl
+index 6605054..2772b4e 100644
+--- a/src/riakc_pb_socket.erl
++++ b/src/riakc_pb_socket.erl
+@@ -903,7 +903,12 @@ create_search_index(Pid, Index, SchemaName, Opts) ->
+     Timeout = proplists:get_value(timeout, Opts, default_timeout(search_timeout)),
+     NVal = proplists:get_value(n_val, Opts),
+     Req = set_index_create_req_nval(NVal, Index, SchemaName),
+-    Req1 = set_index_create_req_timeout(Timeout, Req),
++    Req1 = case proplists:is_defined(timeout, Opts) of
++               true ->
++                   set_index_create_req_timeout(Timeout, Req);
++               _ ->
++                   Req
++           end,
+ 
+     Timeout1 = if
+                    is_integer(Timeout) ->
